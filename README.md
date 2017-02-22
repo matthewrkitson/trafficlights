@@ -46,3 +46,21 @@ network={
   * `sudo apt-get install python3-rpi.gpio`
   * `sudo apt-get install lighttpd`
   * `sudo apt-get install git`
+* Clone this repository into the `pi` user's home area
+  * `git clone https://github.com/matthewrkitson/trafficlights.git`
+* Update the lighttpd configuration to enable fast-cgi and point to the traffic lights web app
+  * `sudo service lighttpd start`
+  * Browse to http://trafficlights/ and check that the welcome page is there. If it's not, you need to fix lighttpd. 
+  * `sudo lighty-enable-mod fast-cgi`
+  * Edit `/etc/lighttpd/lighttpd.conf` adding the following lines
+```
+fastcgi.server = ("/trafficlights" =>
+   ((
+      "socket" => "/tmp/trafficlights-fcgi.sock",
+      "bin-path" => "/home/pi/trafficlights/trafficlights/run-trafficlights.fcgi",
+      "check-local" => "disable",
+      "max-procs" => 1
+   ))
+)
+```
+  * Browse to http://trafficlights/trafficlights/ to see the trafficlights control page. 
