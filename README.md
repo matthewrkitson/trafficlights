@@ -48,7 +48,7 @@ network={
   * `sudo apt-get install git`
   * Install flup - I think I did `sudo pip3 install flup-py3`, but you may need to Google this...
 * Allow the lighttpd web server to control GPIO
-  * `sudo useradd -G gpio www-data`
+  * `sudo usermod -a -G gpio www-data`
 * Clone this repository into the `pi` user's home area
   * `git clone https://github.com/matthewrkitson/trafficlights.git`
 * Update the lighttpd configuration to enable fast-cgi and point to the traffic lights web app
