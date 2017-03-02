@@ -57,7 +57,7 @@ network={
 fastcgi.server = ("/trafficlights" =>
    ((
       "socket" => "/tmp/trafficlights-fcgi.sock",
-      "bin-path" => "/home/pi/trafficlights/trafficlights/run-trafficlights.fcgi",
+      "bin-path" => "/home/pi/trafficlights/website/host-trafficlights.fcgi",
       "check-local" => "disable",
       "max-procs" => 1
    ))
