@@ -33,10 +33,14 @@ def index():
                 GPIO.output(reds[i], 0)
                 GPIO.output(greens[i], 0)
 
-        if 'poweroff' in request.args:
-            os.system('sudo poweroff')
-
     return render_template('index.html')
+
+@app.route('/admin')
+def admin():
+    if 'poweroff' in request.args:
+      os.system('sudo poweroff')
+
+    return render_template('admin.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
