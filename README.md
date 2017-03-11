@@ -46,6 +46,10 @@ network={
   * `sudo apt-get install python3-rpi.gpio`
   * `sudo apt-get install lighttpd`
   * `sudo apt-get install git`
+  * Install flup - I think I did `sudo pip3 install flup-py3`, but you may need to Google this...
+* Allow the lighttpd web server to control GPIO and turn the Pi off
+  * `sudo usermod -a -G gpio www-data`
+  * Use `sudo visudo` to add the line `www-data ALL=NOPASSWD: /sbin/poweroff` to /etc/sudoers
 * Clone this repository into the `pi` user's home area
   * `git clone https://github.com/matthewrkitson/trafficlights.git`
 * Update the lighttpd configuration to enable fast-cgi and point to the traffic lights web app
@@ -57,7 +61,7 @@ network={
 fastcgi.server = ("/trafficlights" =>
    ((
       "socket" => "/tmp/trafficlights-fcgi.sock",
-      "bin-path" => "/home/pi/trafficlights/trafficlights/run-trafficlights.fcgi",
+      "bin-path" => "/home/pi/trafficlights/website/host-trafficlights.fcgi",
       "check-local" => "disable",
       "max-procs" => 1
    ))
