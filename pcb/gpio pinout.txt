@@ -1,0 +1,80 @@
+GPIO pinout for Raspberry Pi 
+Models A+, B+, Zero, Zero W
+
+Note that Pi header number refers to the header pin as labelled on the Pi.
+Jumper pin number refers to numbering used for jumper cables. 
+
+              Jumper       Pi Header     Jumper          
+3v3 Power        1          1   2         40   5v Power
+BCM 2 (SDA)      2          3   4         39   5v Power
+BCM 3 (SCL)      3          5   6         38   Ground
+BCM 4 (GPCLK0)   4          7   8         37   BCM 14 (TXD)
+Ground           5          9  10         36   BCM 15 (RXD)
+BCM 17           6         11  12         35   BCM 18 (PWM0)
+BCM 27           7         13  14         34   Ground
+BCM 22           8         15  16         33   BCM 23
+3v3 Power        9         17  18         32   BCM 24
+BCM 10 (MOSI)   10         19  20         31   Ground
+BCM 9 (MISO)    11         21  22         30   BCM 25
+BCM 11 (SCLK)   12         23  24         29   BCM 8 (CE0)
+Ground          13         25  26         28   BCM 7 (CE1)
+BCM 0 (ID_SD)   14         27  28         27   BCM 1 (ID_SC)
+BCM 5           15         29  30         26   Ground
+BCM 6           16         31  32         25   BCM 12 (PWM0)
+BCM 13 (PWM1)   17         33  34         24   Ground
+BCM 19 (MISO)   18         35  36         23   BCM 16
+BCM 26          19         37  38         22   BCM 20 (MOSI)
+Ground          20         39  40         21   BCM 21 (SCLK)
+
+For traffic lights, the mappings are shown below
+              Jumper       Pi Header     Jumper          
+3v3 Power        1          1   2         40   5v Power
+BCM 2 Green 1    2          3   4         39   5v Power
+BCM 3 Red 1      3          5   6         38   Ground
+BCM 4 Green 2    4          7   8         37   BCM 14 Red 2
+Ground           5          9  10         36   BCM 15 Green 3
+BCM 17 Red 3     6         11  12         35   BCM 18 Green 4
+BCM 27 Red 4     7         13  14         34   Ground
+BCM 22 Green 5   8         15  16         33   BCM 23 Red 5
+3v3 Power        9         17  18         32   BCM 24 Green 6
+BCM 10 Red 6    10         19  20         31   Ground
+BCM 9 Green 7   11         21  22         30   BCM 25 Red 7
+BCM 11 Green 8  12         23  24         29   BCM 8 Red 8
+Ground          13         25  26         28   BCM 7 Green 9
+BCM 0 Red 9     14         27  28         27   BCM 1 Green 10
+BCM 5 Red 10    15         29  30         26   Ground
+BCM 6 Green 11  16         31  32         25   BCM 12 Red 11
+BCM 13 Green 12 17         33  34         24   Ground
+BCM 19 Red 12   18         35  36         23   BCM 16
+BCM 26          19         37  38         22   BCM 20 (MOSI)
+Ground          20         39  40         21   BCM 21 (SCLK)
+
+
+GPIO 2     Green 1
+GPIO 4     Green 2
+GPIO 15    Green 3
+GPIO 18    Green 4
+GPIO 22    Green 5
+GPIO 24    Green 6
+GPIO 9     Green 7
+GPIO 11    Green 8
+GPIO 7     Green 9
+GPIO 1     Green 10
+GPIO 6     Green 11
+GPIO 13    Green 12
+GPIO 3     Red 1
+GPIO 14    Red 2
+GPIO 17    Red 3
+GPIO 27    Red 4
+GPIO 23    Red 5
+GPIO 10    Red 6
+GPIO 25    Red 7
+GPIO 8     Red 8
+GPIO 0     Red 9
+GPIO 5     Red 10
+GPIO 12    Red 11
+GPIO 19    Red 12
+GPIO 16        
+GPIO 20        
+GPIO 21        
+GPIO 26        
