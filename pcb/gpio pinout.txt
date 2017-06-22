@@ -4,48 +4,31 @@ Models A+, B+, Zero, Zero W
 Note that Pi header number refers to the header pin as labelled on the Pi.
 Jumper pin number refers to numbering used for jumper cables. 
 
-              Jumper       Pi Header     Jumper          
-3v3 Power        1          1   2         40   5v Power
-BCM 2 (SDA)      2          3   4         39   5v Power
-BCM 3 (SCL)      3          5   6         38   Ground
-BCM 4 (GPCLK0)   4          7   8         37   BCM 14 (TXD)
-Ground           5          9  10         36   BCM 15 (RXD)
-BCM 17           6         11  12         35   BCM 18 (PWM0)
-BCM 27           7         13  14         34   Ground
-BCM 22           8         15  16         33   BCM 23
-3v3 Power        9         17  18         32   BCM 24
-BCM 10 (MOSI)   10         19  20         31   Ground
-BCM 9 (MISO)    11         21  22         30   BCM 25
-BCM 11 (SCLK)   12         23  24         29   BCM 8 (CE0)
-Ground          13         25  26         28   BCM 7 (CE1)
-BCM 0 (ID_SD)   14         27  28         27   BCM 1 (ID_SC)
-BCM 5           15         29  30         26   Ground
-BCM 6           16         31  32         25   BCM 12 (PWM0)
-BCM 13 (PWM1)   17         33  34         24   Ground
-BCM 19 (MISO)   18         35  36         23   BCM 16
-BCM 26          19         37  38         22   BCM 20 (MOSI)
-Ground          20         39  40         21   BCM 21 (SCLK)
-
 For traffic lights, the mappings are shown below
+  R-nn are red lights; on when output high
+  G-nn are green lights; on when output high
+  S-nn are switches; input pulled low when pressed; configure with pull-up resistors
+  B-nn are buzzers; on when output high
+
               Jumper       Pi Header     Jumper          
 3v3 Power        1          1   2         40   5v Power
-BCM 2            2          3   4         39   5v Power
-BCM 3            3          5   6         38   Ground
-BCM 4            4          7   8         37   BCM 14 R-03
+BCM 2  G-03      2          3   4         39   5v Power
+BCM 3  R-02      3          5   6         38   Ground
+BCM 4  G-02      4          7   8         37   BCM 14 R-03
 Ground           5          9  10         36   BCM 15 G-04
-BCM 17           6         11  12         35   BCM 18 R-04
-BCM 27           7         13  14         34   Ground
-BCM 22           8         15  16         33   BCM 23 G-05 
+BCM 17 R-01      6         11  12         35   BCM 18 R-04
+BCM 27 G-01      7         13  14         34   Ground
+BCM 22 B-01      8         15  16         33   BCM 23 G-05 
 3v3 Power        9         17  18         32   BCM 24 R-05
-BCM 10          10         19  20         31   Ground
-BCM 9           11         21  22         30   BCM 25 G-06 
-BCM 11          12         23  24         29   BCM 8  R-06
+BCM 10 B-02     10         19  20         31   Ground
+BCM 9  NC       11         21  22         30   BCM 25 G-06 
+BCM 11 S-01     12         23  24         29   BCM 8  R-06
 Ground          13         25  26         28   BCM 7  G-07
-BCM 0           14         27  28         27   BCM 1  R-07
-BCM 5           15         29  30         26   Ground
-BCM 6           16         31  32         25   BCM 12 G-08 
-BCM 13          17         33  34         24   Ground
-BCM 19          18         35  36         23   BCM 16 R-08 
-BCM 26          19         37  38         22   BCM 20 G-09
+BCM 0  R-12     14         27  28         27   BCM 1  R-07
+BCM 5  G-12     15         29  30         26   Ground
+BCM 6  R-11     16         31  32         25   BCM 12 G-08 
+BCM 13 G-11     17         33  34         24   Ground
+BCM 19 R-10     18         35  36         23   BCM 16 R-08 
+BCM 26 G-10     19         37  38         22   BCM 20 G-09
 Ground          20         39  40         21   BCM 21 R-09
 
