@@ -50,7 +50,7 @@ network={
   * `sudo apt-get install python3-rpi.gpio`
   * `sudo apt-get install lighttpd`
   * `sudo apt-get install git`
-  * Install flup - I think I did `sudo pip3 install flup-py3`, but you may need to Google this...
+  * `sudo pip3 install flup-py3`
 * Allow the lighttpd web server to control GPIO and turn the Pi off
   * `sudo usermod -a -G gpio www-data`
   * Use `sudo visudo` to add the line `www-data ALL=NOPASSWD: /sbin/poweroff` to /etc/sudoers
