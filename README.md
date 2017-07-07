@@ -59,7 +59,7 @@ network={
 * Update the lighttpd configuration to enable fast-cgi and point to the traffic lights web app
   * `sudo service lighttpd start`
   * Browse to http://trafficlights/ and check that the welcome page is there. If it's not, you need to fix lighttpd. 
-  * `sudo lighty-enable-mod fast-cgi`
+  * `sudo lighty-enable-mod fastcgi`
   * Edit `/etc/lighttpd/lighttpd.conf` adding the following lines
 ```
 fastcgi.server = ("/trafficlights" =>
