@@ -1,21 +1,13 @@
 from flask import Flask, render_template, request
-import RPi.GPIO as GPIO
+import controller
 import os
- 
-try: 
-   reds = [8, 7, 1, 12, 16]
-   greens = [14, 15, 18, 23, 24]
-   lights = greens + reds
-
-   GPIO.setmode(GPIO.BCM)
-   for light in lights:
-     GPIO.setup(light, GPIO.OUT)
-     GPIO.output(light, 0)
-except:
-    pass
 
 app = Flask(__name__)
 app.debug = True
+app.use_debugger = True
+app.use_reloader = True
+
+lights = controller.Controller(controller.FULLSIZE_V1)
 
 @app.route('/')
 def index():
@@ -24,14 +16,13 @@ def index():
         if arg in request.args:
             value = request.args[arg]
             if value == 'red':
-                GPIO.output(reds[i], 1)
-                GPIO.output(greens[i], 0)
+                lights.set_indicator(i, controller.RED)
             if value == 'green':
-                GPIO.output(reds[i], 0)
-                GPIO.output(greens[i], 1)
-            if value == 'off':
-                GPIO.output(reds[i], 0)
-                GPIO.output(greens[i], 0)
+                lights.set_indicator(i, controller.GREEN)
+            if value == 'off':    
+                lights.set_indicator(i, controller.OFF)
+            if value == 'both':
+                lights.set_indicator(i, controller.BOTH)
 
     return render_template('index.html')
 
