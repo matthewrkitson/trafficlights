@@ -50,7 +50,8 @@ network={
   * `sudo apt-get install python3-rpi.gpio`
   * `sudo apt-get install lighttpd`
   * `sudo apt-get install git`
-  * `sudo pip3 install flup-py3`
+  * `sudo pip3 install flipflop`
+  * (don't think you need this; flipflop should do the same thing `sudo pip3 install flup-py3`)
 * Allow the lighttpd web server to control GPIO and turn the Pi off
   * `sudo usermod -a -G gpio www-data`
   * Use `sudo visudo` to add the line `www-data ALL=NOPASSWD: /sbin/poweroff` to /etc/sudoers
@@ -59,10 +60,10 @@ network={
 * Update the lighttpd configuration to enable fast-cgi and point to the traffic lights web app
   * `sudo service lighttpd start`
   * Browse to http://trafficlights/ and check that the welcome page is there. If it's not, you need to fix lighttpd. 
-  * `sudo lighty-enable-mod fast-cgi`
+  * `sudo lighty-enable-mod fastcgi`
   * Edit `/etc/lighttpd/lighttpd.conf` adding the following lines
 ```
-fastcgi.server = ("/trafficlights" =>
+fastcgi.server = ("/" =>
    ((
       "socket" => "/tmp/trafficlights-fcgi.sock",
       "bin-path" => "/home/pi/trafficlights/website/host-trafficlights.fcgi",
@@ -72,4 +73,4 @@ fastcgi.server = ("/trafficlights" =>
 )
 ```
   * `sudo service lighttpd restart` (or `sudo service lighttpd force-reload`, but this didn't always seem to work for me)
-  * Browse to http://trafficlights/trafficlights/ to see the trafficlights control page. 
+  * Browse to http://trafficlights/ to see the trafficlights control page. 
