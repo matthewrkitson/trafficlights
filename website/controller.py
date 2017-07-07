@@ -33,8 +33,8 @@ class Controller:
                 duplicates.add(item)
             seen.add(item)
 
-        if dupliactes:
-            raise ValueError('The following GPIO pins have been assigned to more than one purpose: ' + duplicates)
+        if duplicates:
+            raise ValueError('The following GPIO pins have been assigned to more than one purpose: ' + str(duplicates))
  
         GPIO.setmode(GPIO.BCM)
 
