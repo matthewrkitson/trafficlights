@@ -24,7 +24,7 @@ def index():
             if value == 'both':
                 lights.set_indicator(i, controller.Controller.BOTH)
 
-    return render_template('index.html')
+    return render_template('index.html', lights = lights)
 
 @app.route('/admin')
 def admin():

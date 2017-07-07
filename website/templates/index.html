@@ -1,35 +1,48 @@
 <html>
+  <head>
+      <style>
+          .green { color: green }
+          .red   { color: red   }
+          .title { font-weight: bold; text-align: center }
+      </style>
+  </head>
   <body>
     <h1>Traffic lights</h1>
     <form>
     <table>
-    <tr>
-      <td><input type="radio" name="pair0" value="green"> Green </td>
-      <td><input type="radio" name="pair1" value="green"> Green </td>
-      <td><input type="radio" name="pair2" value="green"> Green </td>
-      <td><input type="radio" name="pair3" value="green"> Green </td>
-      <td><input type="radio" name="pair4" value="green"> Green </td>
-    </tr>
+        <tr>
+            {% for index in range(lights.num_indicators) %}
+            <td class="title">{{index}}</td>
+            {% endfor %}
+        </tr>
+        
+        <tr>
+            {% for index in range(lights.num_indicators) %}
+            <td class="green"><input type="radio" name="pair{{index}}" value="green" {{ "checked" if lights.get_indicator(index) == lights.GREEN }}> Green </td>
+            {% endfor %}
+        </tr>
+        
+        <tr>
+            {% for index in range(lights.num_indicators) %}
+            <td class="red"><input type="radio" name="pair{{index}}" value="red" {{ "checked" if lights.get_indicator(index) == lights.RED }}> Red </td>
+            {% endfor %}
+        </tr>
+        
+        <tr>
+            {% for index in range(lights.num_indicators) %}
+            <td class="both"><input type="radio" name="pair{{index}}" value="both" {{ "checked" if lights.get_indicator(index) == lights.BOTH }}> Both </td>
+            {% endfor %}
+        </tr>
+        
+        <tr>
+            {% for index in range(lights.num_indicators) %}
+            <td class="off"><input type="radio" name="pair{{index}}" value="off" {{ "checked" if lights.get_indicator(index) == lights.OFF }}> Off </td>
+            {% endfor %}
+        </tr>
 
-    <tr>
-      <td><input type="radio" name="pair0" value="red"> Red </td>
-      <td><input type="radio" name="pair1" value="red"> Red </td>
-      <td><input type="radio" name="pair2" value="red"> Red </td>
-      <td><input type="radio" name="pair3" value="red"> Red </td>
-      <td><input type="radio" name="pair4" value="red"> Red </td>
-    </tr>
-
-    <tr>
-      <td><input type="radio" name="pair0" value="off"> Off </td>
-      <td><input type="radio" name="pair1" value="off"> Off </td>
-      <td><input type="radio" name="pair2" value="off"> Off </td>
-      <td><input type="radio" name="pair3" value="off"> Off </td>
-      <td><input type="radio" name="pair4" value="off"> Off </td>
-    </tr>
-
-    <tr>
-      <td colspan='5'><input type="submit" value="Go" style="width:100%"/></td>
-    </tr>
+        <tr>
+          <td colspan='{{lights.num_indicators}}'><input type="submit" value="Go" style="width:100%"/></td>
+        </tr>
     </table>
     </form>
   </body>

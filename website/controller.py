@@ -63,6 +63,15 @@ class Controller:
         elif state == Controller.BOTH:
             GPIO.output(self.reds[index], GPIO.HIGH)
             GPIO.output(self.greens[index], GPIO.HIGH)
+            
+    def get_indicator(self, index):
+        green = GPIO.input(self.greens[index])
+        red = GPIO.input(self.reds[index])
+        if green and red: return Controller.BOTH
+        if green:         return Controller.GREEN
+        if red :          return Controller.RED
+        return Controller.OFF
+        
 
 
 FULLSIZE_V1 = ControllerConfiguration(
