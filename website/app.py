@@ -11,7 +11,7 @@ lights = controller.Controller(controller.FULLSIZE_V1)
 
 @app.route('/')
 def index():
-    for i in range(5):
+    for i in range(lights.num_indicators):
         arg = 'pair' + str(i)
         if arg in request.args:
             value = request.args[arg]

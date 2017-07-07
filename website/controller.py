@@ -2,9 +2,9 @@ import RPi.GPIO as GPIO
 import collections
 
 class ControllerConfiguration:
-    def __init__(self, reds, greens, buzzers, inputs):
-        self.reds = reds[:]
+    def __init__(self, greens, reds, buzzers, inputs):
         self.greens = greens[:]
+        self.reds = reds[:]
         self.buzzers = buzzers[:]
         self.inputs = inputs[:]  
 
@@ -16,13 +16,18 @@ class Controller:
     BOTH = 'both'
 
     def __init__(self, configuration):
-        self._reds = configuration.reds[:]
-        self._greens = configuration.greens[:]
-        self._buzzers = configuration.buzzers[:]
-        self._inputs = configuration.inputs[:]
+        self.greens = configuration.greens[:]
+        self.reds = configuration.reds[:]
+        self.buzzers = configuration.buzzers[:]
+        self.inputs = configuration.inputs[:]
 
-        outputs = self._reds + self._greens + self._buzzers
-        inputs = self._inputs
+        if len(self.reds) != len(self.greens):
+            raise ValueError('Green/red light mismatch; there are {0} green lights and {1} red lights specified'.format(len(self.greens), len(self.reds)))
+
+        self.num_indicators = len(self.greens)
+
+        outputs = self.reds + self.greens + self.buzzers
+        inputs = self.inputs
 
         all_io = outputs + inputs
 
@@ -47,28 +52,28 @@ class Controller:
 
     def set_indicator(self, index, state):
         if state == Controller.RED:
-            GPIO.output(self._reds[index], GPIO.HIGH)
-            GPIO.output(self._greens[index], GPIO.LOW)
+            GPIO.output(self.reds[index], GPIO.HIGH)
+            GPIO.output(self.greens[index], GPIO.LOW)
         elif state == Controller.GREEN:
-            GPIO.output(self._reds[index], GPIO.LOW)
-            GPIO.output(self._greens[index], GPIO.HIGH)
+            GPIO.output(self.reds[index], GPIO.LOW)
+            GPIO.output(self.greens[index], GPIO.HIGH)
         elif state == Controller.OFF:
-            GPIO.output(self._reds[index], GPIO.LOW)
-            GPIO.output(self._greens[index], GPIO.LOW)
+            GPIO.output(self.reds[index], GPIO.LOW)
+            GPIO.output(self.greens[index], GPIO.LOW)
         elif state == Controller.BOTH:
-            GPIO.output(self._reds[index], GPIO.HIGH)
-            GPIO.output(self._greens[index], GPIO.HIGH)
+            GPIO.output(self.reds[index], GPIO.HIGH)
+            GPIO.output(self.greens[index], GPIO.HIGH)
 
 
 FULLSIZE_V1 = ControllerConfiguration(
-    [17,  3, 14, 18, 24,  8,  1, 16, 21, 19,  6, 0],
     [27,  4,  2, 15, 23, 25,  7, 12, 20, 26, 13, 5],
+    [17,  3, 14, 18, 24,  8,  1, 16, 21, 19,  6, 0],
     [22, 10],
     [11])
 
 DESKTOP_V1 = ControllerConfiguration(
-    [ 8,  7,  1, 12, 16],
     [14, 15, 18, 23, 24],
+    [ 8,  7,  1, 12, 16],
     [],
     [])
             
