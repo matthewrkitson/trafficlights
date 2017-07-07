@@ -63,7 +63,7 @@ network={
   * `sudo lighty-enable-mod fastcgi`
   * Edit `/etc/lighttpd/lighttpd.conf` adding the following lines
 ```
-fastcgi.server = ("/trafficlights" =>
+fastcgi.server = ("/" =>
    ((
       "socket" => "/tmp/trafficlights-fcgi.sock",
       "bin-path" => "/home/pi/trafficlights/website/host-trafficlights.fcgi",
@@ -73,4 +73,4 @@ fastcgi.server = ("/trafficlights" =>
 )
 ```
   * `sudo service lighttpd restart` (or `sudo service lighttpd force-reload`, but this didn't always seem to work for me)
-  * Browse to http://trafficlights/trafficlights/ to see the trafficlights control page. 
+  * Browse to http://trafficlights/ to see the trafficlights control page. 
