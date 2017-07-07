@@ -16,13 +16,13 @@ def index():
         if arg in request.args:
             value = request.args[arg]
             if value == 'red':
-                lights.set_indicator(i, controller.RED)
+                lights.set_indicator(i, controller.Controller.RED)
             if value == 'green':
-                lights.set_indicator(i, controller.GREEN)
+                lights.set_indicator(i, controller.Controller.GREEN)
             if value == 'off':    
-                lights.set_indicator(i, controller.OFF)
+                lights.set_indicator(i, controller.Controller.OFF)
             if value == 'both':
-                lights.set_indicator(i, controller.BOTH)
+                lights.set_indicator(i, controller.Controller.BOTH)
 
     return render_template('index.html')
 

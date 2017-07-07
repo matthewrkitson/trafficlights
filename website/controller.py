@@ -45,17 +45,17 @@ class Controller:
         for ip in inputs:
             GPIO.setup(ip, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
-    def set_indicator(index, state):
-        if state == RED:
+    def set_indicator(self, index, state):
+        if state == Controller.RED:
             GPIO.output(self._reds[index], GPIO.HIGH)
             GPIO.output(self._greens[index], GPIO.LOW)
-        elif state == GREEN:
+        elif state == Controller.GREEN:
             GPIO.output(self._reds[index], GPIO.LOW)
             GPIO.output(self._greens[index], GPIO.HIGH)
-        elif state == OFF:
+        elif state == Controller.OFF:
             GPIO.output(self._reds[index], GPIO.LOW)
             GPIO.output(self._greens[index], GPIO.LOW)
-        elif state == BOTH:
+        elif state == Controller.BOTH:
             GPIO.output(self._reds[index], GPIO.HIGH)
             GPIO.output(self._greens[index], GPIO.HIGH)
 
