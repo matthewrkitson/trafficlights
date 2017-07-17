@@ -11,20 +11,34 @@ lights = controller.Controller(controller.FULLSIZE_V1)
 
 @app.route('/')
 def index():
+    errors = []
+    
     for i in range(lights.num_indicators):
         arg = 'pair' + str(i)
         if arg in request.args:
             value = request.args[arg]
             if value == 'red':
                 lights.set_indicator(i, controller.Controller.RED)
-            if value == 'green':
+            elif value == 'green':
                 lights.set_indicator(i, controller.Controller.GREEN)
-            if value == 'off':    
+            elif value == 'off':    
                 lights.set_indicator(i, controller.Controller.OFF)
-            if value == 'both':
+            elif value == 'both':
                 lights.set_indicator(i, controller.Controller.BOTH)
+            else:
+                errors.append('Unrecognised value specified for ' + arg + ': ' + value)
+                
+    for i in range(lights.num_buzzers):
+        arg = 'buzzer' + str(i)
+        if arg in request.args:
+            value = request.args[arg]
+            try:
+                duration = int(value)
+                lights.buzz(i, duration)
+            except:
+                errors.append('Unable to convert ' + value + ' to ms duration for ' + arg)
 
-    return render_template('index.html', lights = lights)
+    return render_template('index.html', lights=lights, errors=errors)
 
 @app.route('/admin')
 def admin():

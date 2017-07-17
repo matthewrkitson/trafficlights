@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO
 import collections
+import _thread as thread
+import time
 
 class ControllerConfiguration:
     def __init__(self, greens, reds, buzzers, inputs):
@@ -25,6 +27,8 @@ class Controller:
             raise ValueError('Green/red light mismatch; there are {0} green lights and {1} red lights specified'.format(len(self.greens), len(self.reds)))
 
         self.num_indicators = len(self.greens)
+        self.num_buzzers = len(self.buzzers)
+        self.num_inputs = len(self.inputs)
 
         outputs = self.reds + self.greens + self.buzzers
         inputs = self.inputs
@@ -71,6 +75,14 @@ class Controller:
         if green:         return Controller.GREEN
         if red :          return Controller.RED
         return Controller.OFF
+        
+    def buzz(self, index, duration_ms = 500):
+        thread.start_new_thread(_buzz, duration_ms)
+        
+    def _buzz(index, duration_ms = 500):
+        GPIO.output(self.buzzers[index], GPIO.HIGH)
+        time.sleep(duration_ms / 1000)
+        GPIO.output(self.buzzers[index], GPIO.LOW)
         
 
 

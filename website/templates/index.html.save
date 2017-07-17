@@ -5,7 +5,6 @@
           .red   { color: red   }
           .title { font-weight: bold; text-align: center }
           .buzzer { }
-          .errors { color: red }
       </style>
   </head>
   <body>
@@ -59,14 +58,9 @@
         </tr>
         {% endfor %}
     </table>
-
+    
     <div class="errors">
-        <ul>
-            {% for error in errors %}
-            <li>{{error}}</li>
-            {% endfor %}
-        </ul>
-    </div>    
+    <>    
   </body>
 </html>
 
