@@ -3,9 +3,6 @@ import controller
 import os
 
 app = Flask(__name__)
-app.debug = True
-app.use_debugger = True
-app.use_reloader = True
 
 lights = controller.Controller(controller.FULLSIZE_V1)
 
@@ -32,11 +29,13 @@ def index():
         arg = 'buzzer' + str(i)
         if arg in request.args:
             value = request.args[arg]
+
             try:
                 duration = int(value)
-                lights.buzz(i, duration)
-            except:
-                errors.append('Unable to convert ' + value + ' to ms duration for ' + arg)
+            except Exception as ex:
+                errors.append('Unable to convert ' + value + ' to ms duration for ' + arg + ': ' + str(ex))
+
+            lights.buzz(i, duration)
 
     return render_template('index.html', lights=lights, errors=errors)
 
@@ -46,6 +45,11 @@ def admin():
       os.system('sudo poweroff')
 
     return render_template('admin.html')
+
+@app.errorhandler(500)
+def internal_error(exception):
+    app.logger.error(exception)
+    return exception, 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

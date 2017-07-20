@@ -77,9 +77,9 @@ class Controller:
         return Controller.OFF
         
     def buzz(self, index, duration_ms = 500):
-        thread.start_new_thread(_buzz, duration_ms)
+        thread.start_new_thread(self._buzz, (index, duration_ms))
         
-    def _buzz(index, duration_ms = 500):
+    def _buzz(self, index, duration_ms = 500):
         GPIO.output(self.buzzers[index], GPIO.HIGH)
         time.sleep(duration_ms / 1000)
         GPIO.output(self.buzzers[index], GPIO.LOW)
