@@ -4,8 +4,6 @@ import os
 
 app = Flask(__name__)
 
-lights = controller.Controller(controller.FULLSIZE_V1)
-
 @app.route('/')
 def index():
     errors = []
@@ -42,7 +40,7 @@ def index():
 @app.route('/admin')
 def admin():
     if 'poweroff' in request.args:
-      os.system('sudo poweroff')
+      poweroff()
 
     return render_template('admin.html')
 
@@ -50,6 +48,15 @@ def admin():
 def internal_error(exception):
     app.logger.error(exception)
     return exception, 500
+    
+def poweroff():
+    for i in range(lights.num_indicators):
+        lights.set_indicator(i, controller.Controller.BOTH)
+
+    os.system('sudo poweroff')
+    
+lights = controller.Controller(controller.FULLSIZE_V1)
+lights.add_input_response(0, poweroff)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

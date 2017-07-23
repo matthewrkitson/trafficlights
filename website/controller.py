@@ -84,6 +84,14 @@ class Controller:
         time.sleep(duration_ms / 1000)
         GPIO.output(self.buzzers[index], GPIO.LOW)
         
+    def add_input_response(self, index, callback):
+        channel = self.inputs[index]
+        GPIO.add_event_detect(channel, GPIO.FALLING, callback=lambda _: callback(), bouncetime=200)
+        
+    def remove_input_response(self, index):
+        channel = self.inputs[index]
+        GPIO.remove_event_detect(channel)
+        
 
 
 FULLSIZE_V1 = ControllerConfiguration(
