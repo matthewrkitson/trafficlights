@@ -52,6 +52,7 @@ network={
   * `sudo apt-get install git`
   * `sudo pip3 install flipflop`
   * (don't think you need this; flipflop should do the same thing `sudo pip3 install flup-py3`)
+  * (optional; allows you to persist terminals between connections) `sudo apt-get install screen`
 * Allow the lighttpd web server to control GPIO and turn the Pi off
   * `sudo usermod -a -G gpio www-data`
   * Use `sudo visudo` to add the line `www-data ALL=NOPASSWD: /sbin/poweroff` to /etc/sudoers
