@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request
 import controller
+import poller
+from teamcity_updater import TeamCityUpdater
+from flash_updater import FlashUpdater
 import os
+import logging
+from logging.handlers import RotatingFileHandler
 
 app = Flask(__name__)
 
@@ -54,10 +59,23 @@ def poweroff():
         lights.set_indicator(i, controller.Controller.BOTH)
 
     os.system('sudo poweroff')
+
+if not app.debug:
+    log_file = '/var/tmp/trafficlights.log'
+    file_handler = RotatingFileHandler(log_file, maxBytes=100000, backupCount=3)
+    file_handler.setLevel(logging.DEBUG)
+    app.logger.addHandler(file_handler)
+
+app.logger.setLevel(logging.DEBUG)
+app.logger.info('Starting traffiglights website')
     
-lights = controller.Controller(controller.FULLSIZE_V1)
+lights = controller.Controller(controller.FULLSIZE_V1, app.logger)
 lights.add_input_response(0, poweroff)
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+teamcity_updater = TeamCityUpdater(lights, app.logger)
+flash_updater = FlashUpdater(lights, app.logger, enable_lights=False)
+
+app.logger.debug('Starting poller')
+poller = poller.Poller(lights, [teamcity_updater, flash_updater], app.logger)
+poller.start()
 

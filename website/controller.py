@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import collections
 import _thread as thread
 import time
+import traceback
 
 class ControllerConfiguration:
     def __init__(self, greens, reds, buzzers, inputs):
@@ -17,11 +18,12 @@ class Controller:
     OFF = 'off'
     BOTH = 'both'
 
-    def __init__(self, configuration):
+    def __init__(self, configuration, logger):
         self.greens = configuration.greens[:]
         self.reds = configuration.reds[:]
         self.buzzers = configuration.buzzers[:]
         self.inputs = configuration.inputs[:]
+        self.logger = logger
 
         if len(self.reds) != len(self.greens):
             raise ValueError('Green/red light mismatch; there are {0} green lights and {1} red lights specified'.format(len(self.greens), len(self.reds)))
