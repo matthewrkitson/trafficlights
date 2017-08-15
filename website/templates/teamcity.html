@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <h1>TeamCity Poller</h1>
+    <form method='POST'>
+      <h2>Server settings</h2>
+      <table>
+        <tr> <td class='label'>TeamCity base url:</td><td clss='input'><input type='text', name='baseurl' value="{{config['baseurl']}}"></td></tr>
+        <tr> <td class='label'>Username:</td><td clss='input'><input type='text' name='usernme' value="{{config['username']}}"></td></tr>
+        <tr> <td class='label'>Password:</td><td clss='input'><input type='text' name='password'></td></tr>
+      </table>
+
+      <h2>Build configurations</h2>
+      <table>
+        {% for build_type in config['build_types'] %}
+        <tr><td class='label'>Indicator {{loop.index - 1}}</td><td class='input'><input type='text' name='build_type_{{loop.index - 1}}' value="{{config['build_types'][loop.index - 1]}}"/></td></tr>
+        {% endfor %}
+      </table>
+      <input type='submit' value='Apply'/>
+    </form>
+  </body>
+</html>

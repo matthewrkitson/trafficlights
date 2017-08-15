@@ -49,9 +49,29 @@ def admin():
 
     return render_template('admin.html')
 
+@app.route('/teamcity', methods=['GET'])
+def teamcity_get():
+    return render_template('teamcity.html', config=teamcity_updater.get_config())
+
+@app.route('/teamcity', methods=['POST'])
+def teamcity_post(): 
+    config = dict()
+    config['baseurl'] = request.form['baseurl']
+    config['username'] = request.form['username']
+    config['password'] = request.form['password']
+
+    build_types = [''] * lights.num_indicators
+    for index in range(lights.num_indicators):
+        build_types[index] = request.form['build_type_' + str(index)]
+    config['build_types'] = build_types
+
+    teamcity_updater.set_config(config)
+
+    return teamcity_get()
+
 @app.errorhandler(500)
 def internal_error(exception):
-    app.logger.error(exception)
+    app.logger.exception(exception)
     return exception, 500
     
 def poweroff():
@@ -68,14 +88,20 @@ if not app.debug:
 
 app.logger.setLevel(logging.DEBUG)
 app.logger.info('Starting traffiglights website')
-    
-lights = controller.Controller(controller.FULLSIZE_V1, app.logger)
-lights.add_input_response(0, poweroff)
 
-teamcity_updater = TeamCityUpdater(lights, app.logger)
-flash_updater = FlashUpdater(lights, app.logger, enable_lights=False)
+try:    
+    lights = controller.Controller(controller.FULLSIZE_V1, app.logger)
+    lights.add_input_response(0, poweroff)
 
-app.logger.debug('Starting poller')
-poller = poller.Poller(lights, [teamcity_updater, flash_updater], app.logger)
-poller.start()
+    app.logger.info('Creating updaters')
+    teamcity_updater = TeamCityUpdater(lights, app.logger)
+    flash_updater = FlashUpdater(lights, app.logger, enable_lights=False)
+
+    app.logger.debug('Starting poller')
+    poller = poller.Poller(lights, [teamcity_updater, flash_updater], app.logger)
+    poller.start()
+
+except Exception as ex:
+    app.logger.exception(ex)
+    raise
 
