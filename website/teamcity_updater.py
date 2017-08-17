@@ -12,6 +12,7 @@ class TeamCityUpdater:
     def __init__(self, lights, logger):
         self.lights = lights
         self.logger = logger
+        self._ignored_indices = []
         
         TeamCityUpdater._write_default_config_if_missing(self._config_path)
         self._config = TeamCityUpdater._read_config(self._config_path)
@@ -27,6 +28,7 @@ class TeamCityUpdater:
         for i, build_type in enumerate(build_types):
             try:
                 if not build_type: continue
+                if i in self._ignored_indices: continue
                 
                 url = urljoin(baseurl, 'app/rest/builds/buildType:' + build_type)
                 self.logger.debug('Getting url: ' + url)
@@ -46,12 +48,16 @@ class TeamCityUpdater:
             
             except requests.exceptions.ConnectionError as ex:
                 self.logger.info('Connection error when trying to retrieve build staus for ' + build_type)
+                self.logger.info('No further attempts to retrieve buid status will be made')
                 self.logger.info(ex)
                 self.lights.set_indicator(i, Controller.OFF)
+                self._ignored_indices = self._ignored_indices + [i]
             except Exception as ex:
                 self.logger.debug('Error occurred when trying to retrieve build status for ' + build_type)
+                self.logger.debug('No further attempts to retrieve build status will be made')
                 self.logger.exception(ex)
                 self.lights.set_indicator(i, Controller.OFF)
+                self._ignored_indices = self._ignored_indices + [i]
                 
     def get_config(self):
         # Get a copy of the config dictionary, but:

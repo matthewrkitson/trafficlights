@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <h1>Traffic light logs</h1>
+        <form method="POST">
+            <label for="loglevel">Logging level: </label>
+            <select id="loglevel" name="loglevel">
+                <option value="{{logging.CRITICAL}}" {{ "selected" if logger.getEffectiveLevel() == logging.CRITICAL }}>Critical</option>
+                <option value="{{logging.ERROR}}" {{ "selected" if logger.getEffectiveLevel() == logging.ERROR }}>Error</option>
+                <option value="{{logging.WARNING}}" {{ "selected" if logger.getEffectiveLevel() == logging.WARNING }}>Warning</option>
+                <option value="{{logging.INFO}}" {{ "selected" if logger.getEffectiveLevel() == logging.INFO }}>Info</option>
+                <option value="{{logging.DEBUG}}" {{ "selected" if logger.getEffectiveLevel() == logging.DEBUG }}>Debug</option>
+                <option value="{{logging.NOTSET}}" {{ "selected" if logger.getEffectiveLevel() == logging.NOTSET }}>All</option>
+            </select>
+            <input type="submit" value="Set log level" />
+        </form>
+        <form method="POST">
+            <input type="submit" name="clear" value="Clear logs" />
+        </form>
+        <form method="POST">
+            <input type="submit" name="refresh" value="Refresh" />
+        </form>
+        <hr>
+        <pre>
+{{ content }}
+        </pre>
+    </body>
+</html>
