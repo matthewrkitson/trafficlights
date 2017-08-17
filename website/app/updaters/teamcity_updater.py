@@ -1,4 +1,4 @@
-from controller import Controller
+from app.controller import Controller
 from urllib.parse import urljoin
 import requests
 import json

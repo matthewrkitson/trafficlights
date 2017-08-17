@@ -1,4 +1,4 @@
-from controller import Controller
+from app.controller import Controller
 
 class FlashUpdater:
     def __init__(self, lights, logger, enable_lights=False, enable_buzz=False):
