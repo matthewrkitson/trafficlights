@@ -1,4 +1,4 @@
-from app import app, poweroff
+from trafficlights import app, poweroff
 from flask import render_template, request
 
 @app.route('/admin')

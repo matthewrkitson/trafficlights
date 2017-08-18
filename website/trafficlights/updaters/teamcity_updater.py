@@ -1,4 +1,4 @@
-from app.controller import Controller
+from trafficlights.controller import Controller
 from urllib.parse import urljoin
 import requests
 import json

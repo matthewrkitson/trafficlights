@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
-import app.controller as controller
-import app.poller as poller
-from app.updaters.teamcity_updater import TeamCityUpdater
-from app.updaters.flash_updater import FlashUpdater
+import trafficlights.controller as controller
+import trafficlights.poller as poller
+from trafficlights.updaters.teamcity_updater import TeamCityUpdater
+from trafficlights.updaters.flash_updater import FlashUpdater
 import os
 import pwd
 import logging
@@ -22,6 +22,8 @@ file_handler.setLevel(logging.DEBUG)
 app.logger.addHandler(file_handler)
     
 app.logger.setLevel(logging.DEBUG)
+app.logger.info('')
+app.logger.info('-------------------------------------------------------')
 app.logger.info('Starting traffiglights website')
 app.logger.info('Running as user ' + username())
 
@@ -48,10 +50,10 @@ try:
     poller = poller.Poller(lights, [teamcity_updater, flash_updater], app.logger)
     poller.start()
     
-    import app.views.index as index
-    import app.views.admin as admin
-    import app.views.logs as logs
-    import app.views.teamcity as teamcity
+    import trafficlights.views.index
+    import trafficlights.views.admin
+    import trafficlights.views.logs
+    import trafficlights.views.teamcity
 
 except Exception as ex:
     app.logger.exception(ex)

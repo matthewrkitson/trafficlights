@@ -4,7 +4,7 @@ import os
 
 from flipflop import WSGIServer
 # from werkzeug.contrib.fixers import CGIRootFix
-from app import app
+from trafficlights import app
 
 if __name__ == '__main__':
     # This may help fix routing bugs if we host at the root of the website. 

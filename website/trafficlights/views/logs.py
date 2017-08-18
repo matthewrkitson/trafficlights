@@ -1,4 +1,4 @@
-from app import app, log_file_path, file_handler
+from trafficlights import app, log_file_path, file_handler
 from flask import render_template, request
 import logging
 

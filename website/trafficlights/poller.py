@@ -19,7 +19,6 @@ class Poller:
                     try:                    
                         updater.update()
                     except Exception as e:
-                        self.logger.error(e)
-                        self.logger.error(''.join(traceback.format_exc()))
+                        self.logger.exception(e)
 
             time.sleep(self.poll_interval_seconds)

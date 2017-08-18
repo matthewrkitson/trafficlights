@@ -1,6 +1,6 @@
-from app import app, lights
+from trafficlights import app, lights
 from flask import render_template, request
-import app.controller as controller
+import trafficlights.controller as controller
 
 @app.route('/')
 def index():

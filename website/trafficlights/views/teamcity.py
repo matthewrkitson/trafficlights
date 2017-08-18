@@ -1,4 +1,4 @@
-from app import app, lights, teamcity_updater
+from trafficlights import app, lights, teamcity_updater
 from flask import render_template, request
 
 @app.route('/teamcity', methods=['GET'])
