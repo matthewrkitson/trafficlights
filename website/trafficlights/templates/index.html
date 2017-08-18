@@ -1,8 +1,5 @@
-<html>
-  <head>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-  </head>
-  <body>
+{% extends 'base.html' %}
+{% block content %}
     <h1>Traffic lights</h1>
     <form method='POST'>
     <table>
@@ -61,6 +58,5 @@
             {% endfor %}
         </ul>
     </div>    
-  </body>
-</html>
+{% endblock %}
 

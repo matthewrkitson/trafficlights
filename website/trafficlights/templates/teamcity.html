@@ -1,8 +1,5 @@
-<html>
-  <head>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-  </head>
-  <body>
+{% extends 'base.html' %}
+{% block content %}   
     <h1>TeamCity Poller</h1>
     <form method='POST'>
       <h2>Server settings</h2>
@@ -20,5 +17,4 @@
       </table>
       <input type='submit' value='Apply'/>
     </form>
-  </body>
-</html>
+{% endblock %}
