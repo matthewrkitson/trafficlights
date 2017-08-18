@@ -4,7 +4,7 @@
   </head>
   <body>
     <h1>Traffic lights</h1>
-    <form>
+    <form method='POST'>
     <table>
         <tr>
             {% for index in range(lights.num_indicators) %}
@@ -46,7 +46,7 @@
         {% for index in range(lights.num_buzzers) %}
         <tr>
             <td class="buzzer">
-                <form>
+                <form method='POST'>
                     Duration <input type="number" value="500" name="buzzer{{index}}"/> ms <input type="submit" value="Buzzer {{index}}"/>
                 </form>
             </td>
