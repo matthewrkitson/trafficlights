@@ -28,11 +28,6 @@ app.logger.info('Starting traffiglights website')
 app.logger.info('Running as user ' + username())
 
 try:
-    @app.errorhandler(500)
-    def internal_error(exception):
-        app.logger.exception(exception)
-        return exception, 500
-                
     def poweroff():
         for i in range(lights.num_indicators):
             lights.set_indicator(i, controller.Controller.BOTH)
