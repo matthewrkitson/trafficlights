@@ -48,7 +48,7 @@ class TeamCityUpdater:
             
             except requests.exceptions.ConnectionError as ex:
                 self.logger.info('Connection error when trying to retrieve build staus for ' + build_type)
-                self.logger.info('No further attempts to retrieve buid status will be made')
+                self.logger.info('No further attempts to retrieve build status will be made')
                 self.logger.info(ex)
                 self.lights.set_indicator(i, Controller.OFF)
                 self._ignored_indices = self._ignored_indices + [i]
