@@ -75,5 +75,11 @@ fastcgi.server = ("/trafficlights" =>
    ))
 )
 ```
+  * Give lighttpd (www-data) write access to the website config folder
+```
+mkdir trafficlights/website/
+sudo chgrp www-data trafficlights/website
+chmod g+rwxs trafficlights/website
+```
   * `sudo service lighttpd restart` (or `sudo service lighttpd force-reload`, but this didn't always seem to work for me)
   * Browse to http://trafficlights/trafficlights to see the trafficlights control page. 
