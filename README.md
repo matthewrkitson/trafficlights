@@ -1,6 +1,8 @@
 # traffic-lights
 Raspberry Pi project to control LED traffic lights
 
+![Traffic Lights Desktop Box](https://user-images.githubusercontent.com/8037532/29745659-2e8084b8-8ab9-11e7-92aa-7abb26a56f33.jpg)
+
 # Overview
 
 * Raspberry Pi Zero 
