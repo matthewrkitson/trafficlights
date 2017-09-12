@@ -35,7 +35,8 @@ try:
         os.system('sudo poweroff')
     
     lights = controller.Controller(controller.FULLSIZE_V1, app.logger)
-    lights.add_input_response(0, poweroff)
+    if lights.num_inputs > 0:
+        lights.add_input_response(0, poweroff)
 
     app.logger.info('Creating updaters')
     teamcity_updater = TeamCityUpdater(lights, app.logger)
