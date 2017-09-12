@@ -7,7 +7,7 @@ import base64
 import _thread as thread
 
 class TeamCityUpdater:
-    _config_path = 'teamcity-config.json'
+    _config_path = 'config/teamcity-config.json'
     
     def __init__(self, lights, logger):
         self.lights = lights
@@ -86,18 +86,16 @@ class TeamCityUpdater:
 
     def _write_default_config_if_missing(config_path):
         if not os.path.isfile(config_path):
-            TeamCityUpdater._write_default_config(config_path)
-            
-        default_config = { 
-            'baseurl': 'http://teamcity/',
-            'username': 'username',
-            'obscured_password': TeamCityUpdater._obscure('password'),
-            'build_types': [
-                'buildType1'
-            ]
-        }
+            default_config = { 
+                'baseurl': 'http://teamcity/',
+                'username': 'username',
+                'obscured_password': TeamCityUpdater._obscure('password'),
+                'build_types': [
+                    'buildType1'
+                ]
+            }
         
-        TeamCityUpdater._write_config(default_config, config_path)
+            TeamCityUpdater._write_config(default_config, config_path)
 
     def _obscure(plaintext):
         # This does nothing more than prevent casual observtion
