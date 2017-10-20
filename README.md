@@ -54,6 +54,7 @@ network={
   * `sudo apt-get install git`
   * `sudo pip3 install flipflop`
   * `sudo pip3 install pycrypto`
+  * `sudo pip3 install gpiozero`
   * (don't think you need this; flipflop should do the same thing `sudo pip3 install flup-py3`)
   * (optional; allows you to persist terminals between connections) `sudo apt-get install screen`
   * (optional, but it makes editing easier) `sudo apt-get install vim`
