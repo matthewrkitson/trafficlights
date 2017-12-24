@@ -47,17 +47,24 @@ network={
     * Inder "Advanced options" choose a reasonable screen resolution (important if you have no monitor plugged in to your pi)
     * Now you can use VNC Viewer to connect to the Pi to control it. 
 * Install the software we need
-  * `sudo apt-get update`
-  * `sudo apt-get install python3-flask`
-  * `sudo apt-get install python3-rpi.gpio`
-  * `sudo apt-get install lighttpd`
-  * `sudo apt-get install git`
-  * `sudo pip3 install flipflop`
-  * `sudo pip3 install cryptography`
-  * `sudo pip3 install gpiozero`
-  * (don't think you need this; flipflop should do the same thing `sudo pip3 install flup-py3`)
-  * (optional; allows you to persist terminals between connections) `sudo apt-get install screen`
-  * (optional, but it makes editing easier) `sudo apt-get install vim`
+```bash
+  sudo apt-get update
+  sudo apt-get install python3-flask python3-rpi.gpio lighttpd git
+  sudo pip3 install flipflop gpiozero
+  sudo apt-get install build-essential libssl-dev libffi-dev python3-dev
+  sudo pip3 install --upgrade pip
+  sudo pip3 install --upgrade setuptools
+  sudo pip3 install cryptography
+  
+  # Don't think you need this; flipflop should do the same thing 
+  # sudo pip3 install flup-py3
+  
+  # Optional; allows you to persist terminals between connections
+  sudo apt-get install screen
+  
+  # Optional, but it makes editing easier
+  sudo apt-get install vim
+```
 * Allow the lighttpd web server to control GPIO and turn the Pi off
   * `sudo usermod -a -G gpio www-data`
   * Use `sudo visudo` to add the line `www-data ALL=NOPASSWD: /sbin/poweroff` to /etc/sudoers
