@@ -1,6 +1,8 @@
 # traffic-lights
 Raspberry Pi project to control LED traffic lights
 
+![Traffic Lights Desktop Box](https://user-images.githubusercontent.com/8037532/29745659-2e8084b8-8ab9-11e7-92aa-7abb26a56f33.jpg)
+
 # Overview
 
 * Raspberry Pi Zero 
@@ -45,13 +47,24 @@ network={
     * Inder "Advanced options" choose a reasonable screen resolution (important if you have no monitor plugged in to your pi)
     * Now you can use VNC Viewer to connect to the Pi to control it. 
 * Install the software we need
-  * `sudo apt-get update`
-  * `sudo apt-get install python3-flask`
-  * `sudo apt-get install python3-rpi.gpio`
-  * `sudo apt-get install lighttpd`
-  * `sudo apt-get install git`
-  * `sudo pip3 install flipflop`
-  * (don't think you need this; flipflop should do the same thing `sudo pip3 install flup-py3`)
+```bash
+  sudo apt-get update
+  sudo apt-get install python3-flask python3-rpi.gpio lighttpd git
+  sudo pip3 install flipflop gpiozero
+  sudo apt-get install build-essential libssl-dev libffi-dev python3-dev
+  sudo pip3 install --upgrade pip
+  sudo pip3 install --upgrade setuptools
+  sudo pip3 install cryptography
+  
+  # Don't think you need this; flipflop should do the same thing 
+  # sudo pip3 install flup-py3
+  
+  # Optional; allows you to persist terminals between connections
+  sudo apt-get install screen
+  
+  # Optional, but it makes editing easier
+  sudo apt-get install vim
+```
 * Allow the lighttpd web server to control GPIO and turn the Pi off
   * `sudo usermod -a -G gpio www-data`
   * Use `sudo visudo` to add the line `www-data ALL=NOPASSWD: /sbin/poweroff` to /etc/sudoers
@@ -63,7 +76,7 @@ network={
   * `sudo lighty-enable-mod fastcgi`
   * Edit `/etc/lighttpd/lighttpd.conf` adding the following lines
 ```
-fastcgi.server = ("/" =>
+fastcgi.server = ("/trafficlights" =>
    ((
       "socket" => "/tmp/trafficlights-fcgi.sock",
       "bin-path" => "/home/pi/trafficlights/website/host-trafficlights.fcgi",
@@ -72,5 +85,11 @@ fastcgi.server = ("/" =>
    ))
 )
 ```
+  * Give lighttpd (www-data) write access to the website config folder
+```
+mkdir trafficlights/website/config
+sudo chgrp www-data trafficlights/website/config
+chmod g+rwxs trafficlights/website/config
+```
   * `sudo service lighttpd restart` (or `sudo service lighttpd force-reload`, but this didn't always seem to work for me)
-  * Browse to http://trafficlights/ to see the trafficlights control page. 
+  * Browse to http://trafficlights/trafficlights to see the trafficlights control page. 

@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <a class='headerlink' href="{{ url_for('index_get') }}">Home</a>
+        <a class='headerlink'  href="{{ url_for('teamcity_get') }}">TeamCity Poller</a>
+        <a class='headerlink'  href="{{ url_for('logs_get') }}">Logs</a>
+        <a class='headerlink'  href="{{ url_for('admin') }}">Admin</a>
+        <hr/>
+        {% block content %}{% endblock %}
+    </body>
+</html>
