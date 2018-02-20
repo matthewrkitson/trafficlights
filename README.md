@@ -27,6 +27,8 @@ Raspberry Pi project to control LED traffic lights
 * Add an empty file called `ssh` to the boot partition
 * Add a file called `wpa_supplicant.conf` to the boot partition, and fill with your WiFi settings
 ```
+ctrl_interface=/run/wpa_supplicant
+update_config=1
 network={
     ssid="<your network SSID>"
     psk="<your network password>"
