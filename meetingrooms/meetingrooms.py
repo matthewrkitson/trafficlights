@@ -67,6 +67,10 @@ def update_with_multiple_calls():
 
 
 while True:
-	for room in rooms:
+	try:
 		update_with_single_call()
-		# update_with_multiple_calls()
+
+		# for room in rooms:
+			# update_with_multiple_calls()
+	except Exception as e:
+		print(e)
