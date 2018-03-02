@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import time
+import urllib.request
+import json
 from gpiozero import LED
 
 # LED pinout for floorplan unit
@@ -39,9 +41,15 @@ def off(pair):
 
 while True:
 	for room in rooms:
-		green(rooms[room])
-		time.sleep(1)
-		red(rooms[room])
-		time.sleep(1)
-		off(rooms[room])
+		contents = urllib.request.urlopen("http://localhost:9000/api/meetingroom/" + room)
+		jsontext = contents.read()
+		print(jsontext)
+		result = json.loads(jsontext.decode("utf8"))
+		busy = result["busy"]
+		print(room + " " + str(busy))
+		if busy:
+			red(rooms[room])
+		else:
+			green(rooms[room])
+
 
