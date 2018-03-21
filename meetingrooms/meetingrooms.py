@@ -2,6 +2,8 @@
 
 import time
 import urllib.request
+import logging
+import logging.handlers
 import json
 from gpiozero import LED, Button
 from subprocess import check_call
@@ -63,7 +65,7 @@ def update_with_single_call():
         for result in results:
                 room = result["room"]
                 busy = result["busy"]
-                print(room + " " + str(busy))
+                logger.info(room + " " + str(busy))
                 if busy:
                         red(rooms[room])
                 else:
@@ -75,13 +77,28 @@ def update_with_multiple_calls():
         print(jsontext)
         result = json.loads(jsontext.decode("utf8"))
         busy = result["busy"]
-        print(room + " " + str(busy))
+        logger.info(room + " " + str(busy))
         if busy:
                 red(rooms[room])
         else:
                 green(rooms[room])
 
+logger = logging.getLogger('meetingrooms')
+logger.setLevel(logging.DEBUG)
 
+formatter = logging.Formatter('%(asctime)s - %(message)s')
+
+fileHandler = logging.handlers.RotatingFileHandler('meetingrooms.log', maxBytes=1048576, backupCount=5)
+fileHandler.setLevel(logging.DEBUG)
+fileHandler.setFormatter(formatter)
+
+# StreamHandler defaults to stderr
+consoleHandler = logging.StreamHandler()
+fileHandler.setFormatter(formatter)
+
+logger.addHandler(fileHandler)
+logger.addHandler(consoleHandler)
+                
 while True:
         try:
                 update_with_single_call()
@@ -89,7 +106,7 @@ while True:
                 # for room in rooms:
                         # update_with_multiple_calls()
         except Exception as e:
-                print(e)
+                logger.error(str(e))
 
         time.sleep(5)
 
