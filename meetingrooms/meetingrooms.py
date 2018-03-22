@@ -58,18 +58,26 @@ def all_on():
         for room in rooms:
                 on(rooms[room])
 
+def format_room(room, busy):
+        if busy:
+                return "(*) " + room + "   "
+        else:
+                return "( ) " + room + "   "
+
 def update_with_single_call():
         contents = urllib.request.urlopen("http://meeting-server:9000/api/meetingroom")
         jsontext = contents.read()
         results = json.loads(jsontext.decode("utf-8"))
+        room_statuses = ""
         for result in results:
                 room = result["room"]
                 busy = result["busy"]
-                logger.info(room + " " + str(busy))
+                room_statuses += format_room(room, busy)
                 if busy:
                         red(rooms[room])
                 else:
                         green(rooms[room])
+        logger.info(room_statuses)
 
 def update_with_multiple_calls():
         contents = urllib.request.urlopen("http://localhost:9000/api/meetingroom/" + room)
