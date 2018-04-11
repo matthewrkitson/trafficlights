@@ -67,25 +67,25 @@ def all_on():
                 on(rooms[room])
 
 def format_room(room, busy):
-        if busy:
-                return "(*) " + room + "   "
-        else:
-                return "( ) " + room + "   "
+    if busy:
+        return "(*) " + room + "   "
+    else:
+        return "( ) " + room + "   "
 
 def update_with_single_call():
-        contents = urllib.request.urlopen("http://meeting-server:9000/api/meetingroom")
-        jsontext = contents.read()
-        results = json.loads(jsontext.decode("utf-8"))
-        room_statuses = ""
-        for result in results:
-                room = result["room"]
-                busy = result["busy"]
-                room_statuses += format_room(room, busy)
-                if busy:
-                        red(rooms[room])
-                else:
-                        green(rooms[room])
-        logger.info(room_statuses)
+    with urllib.request.urlopen("http://meeting-server:9000/api/meetingroom") as contents:
+            jsontext = contents.read()
+            results = json.loads(jsontext.decode("utf-8"))
+            room_statuses = ""
+            for result in results:
+                    room = result["room"]
+                    busy = result["busy"]
+                    room_statuses += format_room(room, busy)
+                    if busy:
+                            red(rooms[room])
+                    else:
+                            green(rooms[room])
+            logger.info(room_statuses)
 
 logger = logging.getLogger('meetingrooms')
 logger.setLevel(logging.DEBUG)
