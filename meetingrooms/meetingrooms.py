@@ -8,16 +8,26 @@ import json
 from gpiozero import LED, Button
 from subprocess import check_call
 
-# LED pinout for "black box" units
-# Top row, green, red, green, red, then bottom row green, red, green, red, etc.
-black_box_leds = [10, 22, 27, 17, 4, 3, 2, 14, 15, 18, 23, 24, 25, 8, 7, 1, 12, 16, 20, 21, 26, 19, 13, 6]
+def get_config():
+    # Read the configuration file (pinout.config)
+    with open('meetingrooms.config') as json_file:
+        config = json.load(json_file)
 
-# LED pinout for "floorplan" unit
-# U1 red, green, U2 red green, etc... then D1 red, green, D2 red, green, etc.
-floorplan_leds = [22, 10, 17, 27, 3, 4, 14, 2, 18, 15, 24, 23, 8, 25, 1, 7, 16, 12, 21, 20, 19, 26, 6, 13]
+    return config
+
+def get_pinout():
+    # Dictionary of pinouts of different hardware units. 
+    # Order of pins is: U1 green, U1 red, U2 green, U2 red, ... U6 green, U6 red, D1 green, D1 red, etc...
+    pinouts = {
+        'blackbox': [10, 22, 27, 17, 4, 3, 2, 14, 15, 18, 23, 24, 25, 8, 7, 1, 12, 16, 20, 21, 26, 19, 13, 6],
+        'floorplan': [22, 10, 17, 27, 3, 4, 14, 2, 18, 15, 24, 23, 8, 25, 1, 7, 16, 12, 21, 20, 19, 26, 6, 13]
+    }
+
+    config = get_config()
+    return pinouts[config['pinout']]
 
 # Choose the appropriate pinout here. 
-leds = black_box_leds
+leds = get_pinout()
 
 rooms = {
         'U1': (LED(leds[0]), LED(leds[1])),
