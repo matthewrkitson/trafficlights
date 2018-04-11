@@ -87,18 +87,6 @@ def update_with_single_call():
                         green(rooms[room])
         logger.info(room_statuses)
 
-def update_with_multiple_calls():
-        contents = urllib.request.urlopen("http://localhost:9000/api/meetingroom/" + room)
-        jsontext = contents.read()
-        print(jsontext)
-        result = json.loads(jsontext.decode("utf8"))
-        busy = result["busy"]
-        logger.info(room + " " + str(busy))
-        if busy:
-                red(rooms[room])
-        else:
-                green(rooms[room])
-
 logger = logging.getLogger('meetingrooms')
 logger.setLevel(logging.DEBUG)
 
@@ -116,13 +104,11 @@ logger.addHandler(fileHandler)
 logger.addHandler(consoleHandler)
                 
 while True:
-        try:
-                update_with_single_call()
+    try:
+        update_with_single_call()
 
-                # for room in rooms:
-                        # update_with_multiple_calls()
-        except Exception as e:
-                logger.error(str(e))
+    except Exception as e:
+        logger.error(str(e))
 
-        time.sleep(5)
+    time.sleep(5)
 
