@@ -83,7 +83,7 @@ def format_room(room, busy):
         return "( ) " + room + "   "
 
 def update_with_single_call():
-    with urllib.request.urlopen("http://meeting-server:9000/api/meetingroom") as contents:
+    with urllib.request.urlopen("http://meeting-server:9000/api/meetingroom", timeout=20) as contents:
             jsontext = contents.read()
             results = json.loads(jsontext.decode("utf-8"))
             room_statuses = ""
