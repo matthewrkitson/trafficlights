@@ -2,11 +2,12 @@
 
 import time
 import urllib.request
-import logging
-import logging.handlers
 import json
 from gpiozero import LED, Button
 from subprocess import check_call
+
+from log import logger
+from lights import red, green, on, off, all_on
 
 def get_config():
     # Read the configuration file (pinout.config)
@@ -56,26 +57,6 @@ button = Button(5, hold_time=2)
 button.when_held = poweroff
 button.when_released = reboot
 
-def green(pair):
-        pair[1].off()
-        pair[0].on()
-
-def red(pair):
-        pair[1].on()
-        pair[0].off()
-
-def on(pair):
-        pair[0].on()
-        pair[1].on()
-
-def off(pair):
-        pair[0].off()
-        pair[1].off()
-
-def all_on():
-        for room in rooms:
-                on(rooms[room])
-
 def format_room(room, busy):
     if busy:
         return "(*) " + room + "   "
@@ -97,22 +78,7 @@ def update_with_single_call():
                             green(rooms[room])
             logger.info(room_statuses)
 
-logger = logging.getLogger('meetingrooms')
-logger.setLevel(logging.DEBUG)
-
-formatter = logging.Formatter('%(asctime)s - %(message)s')
-
-fileHandler = logging.handlers.RotatingFileHandler('meetingrooms.log', maxBytes=1048576, backupCount=5)
-fileHandler.setLevel(logging.DEBUG)
-fileHandler.setFormatter(formatter)
-
-# StreamHandler defaults to stderr
-consoleHandler = logging.StreamHandler()
-fileHandler.setFormatter(formatter)
-
-logger.addHandler(fileHandler)
-logger.addHandler(consoleHandler)
-                
+               
 while True:
     try:
         update_with_single_call()
