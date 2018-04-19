@@ -1,12 +1,5 @@
-import json
 from gpiozero import LED
-
-def get_config():
-    # Read the configuration file (pinout.config)
-    with open('meetingrooms.config') as json_file:
-        config = json.load(json_file)
-
-    return config
+from config import get_config
 
 def get_pinout():
     # Dictionary of pinouts of different hardware units. 
