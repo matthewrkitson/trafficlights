@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import time
 from lights import get_lights
 import curses
