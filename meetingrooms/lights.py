@@ -2,18 +2,16 @@ from gpiozero import LED
 from config import get_config
 
 def get_pinout():
-    # Dictionary of pinouts of different hardware units. 
     # Order of pins is: U1 green, U1 red, U2 green, U2 red, ... U6 green, U6 red, D1 green, D1 red, etc...
-    pinouts = {
-        'blackbox':  [10, 22, 27, 17,  4,  3,  2, 14, 15, 18, 23, 24, 25,  8,  7,  1, 12, 16, 20, 21, 26, 19, 13,  6],
-        'floorplan': [22, 10, 17, 27,  3,  4, 14,  2, 18, 15, 24, 23,  8, 25,  1,  7, 16, 12, 21, 20, 19, 26,  6, 13],
-        'bigpanel':  [27, 17,  4,  3,  2, 14, 15, 18, 23, 24, 25,  8,  7,  1, 12, 16, 20, 21, 26, 19, 13,  6,  5,  0]
-    }
-
     config = get_config()
-    return pinouts[config['pinout']]
+    return config['lights']
 
+lights = None
 def get_lights(initialise = True):
+    global lights
+    if lights is not None:
+        return lights
+
     leds = get_pinout()
 
     if (initialise):
@@ -56,7 +54,13 @@ def off(pair):
         pair[1].off()
 
 def all_on():
-        for room in rooms:
-                on(rooms[room])
+        lights = get_lights()
+        for light in lights:
+            on(lights[light])
+
+def all_off():
+        lights = get_lights()
+        for light in lights:
+            off(lights[light])
 
 

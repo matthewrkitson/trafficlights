@@ -8,6 +8,7 @@ from subprocess import check_call
 
 from log import logger
 from lights import get_lights, red, green, on, off, all_on
+from buttons import get_buttons
 
 def poweroff():
         all_on()
@@ -39,8 +40,8 @@ def update_with_single_call(roomlights):
             logger.info(room_statuses)
 
 
-
-button = Button(5, hold_time=2)
+buttons = get_buttons()
+button = buttons[0]
 button.when_held = poweroff
 button.when_released = reboot
 
