@@ -53,10 +53,7 @@ network={
   sudo apt-get update
   sudo apt-get install python3-flask python3-rpi.gpio lighttpd git
   sudo pip3 install flipflop gpiozero
-  sudo apt-get install build-essential libssl-dev libffi-dev python3-dev
-  sudo pip3 install --upgrade pip
-  sudo pip3 install --upgrade setuptools
-  sudo pip3 install cryptography
+  sudo apt-get install python3-cryptography
   
   # Don't think you need this; flipflop should do the same thing 
   # sudo pip3 install flup-py3
