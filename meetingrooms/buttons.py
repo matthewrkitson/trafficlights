@@ -7,7 +7,7 @@ def get_buttons():
     if buttons is not None:
         return buttons
 
-    config = get_config()
+    config = get_config("hardware")
     button_pins = config['buttons']
     buttons = [Button(b, hold_time=2) for b in button_pins]
     return buttons

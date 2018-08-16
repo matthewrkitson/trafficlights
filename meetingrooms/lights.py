@@ -3,7 +3,7 @@ from config import get_config
 
 def get_pinout():
     # Order of pins is: U1 green, U1 red, U2 green, U2 red, ... U6 green, U6 red, D1 green, D1 red, etc...
-    config = get_config()
+    config = get_config("hardware")
     return config['lights']
 
 lights = None
