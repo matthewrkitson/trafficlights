@@ -1,0 +1,28 @@
+LCD header
+----------
+GPIO14    DB7   1   2  DB6   GPIO2
+GPIO15    DB5   3   4  DB4   GPIO3
+GPIO18    DB3   5   6  DB2   GPIO4
+GPIO23    DB1   7   8  DB0   GPIO17
+GPIO24     E1   9  10  RW    GND
+GPIO25     RS  11  12  VO    Contrast 
+GND       VSS  13  14  VDD   +5V
+GPIO8      E2  15  16  NC
+Backlight   A  17  18  K     GND
+
+Buttons header
+--------------
+Pressing button connects to GND.
+Use GPIO with pull-up resistor enabled.
+
+B1  GPIO7
+B2  GPIO12
+B3  GPIO16
+
+Output header
+-------------
+Connect red and green LED
+Header connects to open-collector NPN transistor
+A high signal on GPIO turns transistor on
+O1  GPIO21
+O2  GPIO20
